@@ -29,11 +29,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.weatherly.weather_api.WeatherViewModel
 import com.example.weatherly.ui.theme.NavItem
 
 
@@ -49,6 +52,9 @@ fun MainScreen(navController: NavController) {
     var selected by remember {
         mutableIntStateOf(0)
     }
+    val weatherViewModel: WeatherViewModel = viewModel()
+
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -71,15 +77,15 @@ fun MainScreen(navController: NavController) {
             }
         }
     ) { innerPadding ->
-        ContentScreen(modifier = Modifier.padding(innerPadding), selected)
+        ContentScreen(modifier = Modifier.padding(innerPadding), selected,weatherViewModel = weatherViewModel)
     }
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int) {
+fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int,weatherViewModel: WeatherViewModel) {
     when (selectedIndex) {
-        3 -> HomeScreen()
-        2 -> SearchScreen()
+        3 -> HomeScreen(modifier,weatherViewModel)
+        2 -> SearchScreen(weatherViewModel)
         1 -> ProfileScreen()
         0 -> SettingsScreen()
     }

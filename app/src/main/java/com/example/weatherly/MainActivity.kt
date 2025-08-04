@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,19 +21,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         installSplashScreen()
         setContent {
-            val navController = rememberNavController()
-            NavHost(
-                navController = navController,
-                startDestination = Routes.welcomeScreen
-            ) {
-                composable(Routes.welcomeScreen) {
-                    WelcomeScreen(navController)
-                }
-                composable(Routes.MainScreen) {
-                    MainScreen(navController)
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Routes.welcomeScreen
+                ) {
+                    composable(Routes.welcomeScreen) {
+                        WelcomeScreen(navController)
+                    }
+                    composable(Routes.MainScreen) {
+                        MainScreen(navController)
+                    }
                 }
             }
         }
     }
 }
-
