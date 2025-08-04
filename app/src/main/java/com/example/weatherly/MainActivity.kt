@@ -5,6 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.weatherly.ui.theme.screens.MainScreen
+import com.example.weatherly.ui.theme.Routes
 import com.example.weatherly.ui.theme.screens.WelcomeScreen
 
 class MainActivity : ComponentActivity() {
@@ -13,15 +18,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         installSplashScreen()
         setContent {
-            WelcomeScreen()
-//            WeatherlyTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
-//            }
+            val navController = rememberNavController()
+            NavHost(
+                navController = navController,
+                startDestination = Routes.welcomeScreen
+            ) {
+                composable(Routes.welcomeScreen) {
+                    WelcomeScreen(navController)
+                }
+                composable(Routes.MainScreen) {
+                    MainScreen(navController)
+                }
+            }
         }
     }
 }
