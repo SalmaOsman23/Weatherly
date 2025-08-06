@@ -22,9 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.weatherly.R
+import com.example.weatherly.ui.theme.DarkPrimaryColor
 import com.example.weatherly.ui.theme.Routes
 import com.example.weatherly.ui.theme.components.LottieLoadingComponent
 import com.example.weatherly.weather_api.NetworkResponse
@@ -70,6 +73,13 @@ fun WelcomeScreen(navController: NavController, viewModel: WeatherViewModel) {
                     }
 
                     else -> {
+                        Text(
+                            "Welcome",
+                            fontSize = 34.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = DarkPrimaryColor
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                         Image(
                             painter = painterResource(id = R.drawable.welcome_illustration),
                             contentDescription = "Weatherly Welcome Illustration",

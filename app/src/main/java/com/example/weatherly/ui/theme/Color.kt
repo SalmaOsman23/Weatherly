@@ -14,4 +14,5 @@ val DarkPrimaryColor = Color(0xFF1976D2)
 val DarkBlue = Color(0xFF00386E)
 
 val PrimaryColorLighterShade = Color(0xFFBCE0FB)
+val White = Color(0xFFFFFFFF)
 

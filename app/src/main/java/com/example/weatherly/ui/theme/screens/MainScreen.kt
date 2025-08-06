@@ -32,11 +32,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.weatherly.ui.theme.DarkBlue
 import com.example.weatherly.ui.theme.DarkPrimaryColor
 import com.example.weatherly.ui.theme.NavItem
 import com.example.weatherly.ui.theme.PrimaryColor
 import com.example.weatherly.ui.theme.PrimaryColorLighterShade
+import com.example.weatherly.ui.theme.White
 import com.example.weatherly.weather_api.WeatherViewModel
 
 
@@ -62,16 +62,18 @@ fun MainScreen(navController: NavController) {
         topBar = {
             @OptIn(ExperimentalMaterial3Api::class)
             (CenterAlignedTopAppBar(
-                modifier = Modifier.background(appbarBrush),
+                modifier = Modifier.background(DarkPrimaryColor),
                 title = {
-                    Text("Weatherly",fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold)
+                    Text(
+                        "Weatherly", fontSize = 26.sp,
+                        fontWeight = FontWeight.Bold
+                    )
 
 
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent,
-                    titleContentColor = DarkBlue
+                    titleContentColor = White
                 )
             ))
         },
@@ -99,16 +101,26 @@ fun MainScreen(navController: NavController) {
             }
         }
     ) { innerPadding ->
-        ContentScreen(modifier = Modifier.padding(innerPadding), selected,weatherViewModel = weatherViewModel,navController)
+        ContentScreen(
+            modifier = Modifier.padding(innerPadding),
+            selected,
+            weatherViewModel = weatherViewModel,
+            navController
+        )
     }
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int,weatherViewModel: WeatherViewModel,navController: NavController) {
+fun ContentScreen(
+    modifier: Modifier = Modifier,
+    selectedIndex: Int,
+    weatherViewModel: WeatherViewModel,
+    navController: NavController
+) {
     when (selectedIndex) {
-        0 -> HomeScreen(modifier,weatherViewModel)
-        1 -> SearchScreen(weatherViewModel,modifier)
-        2 -> SettingsScreen(modifier,navController )
+        0 -> HomeScreen(modifier, weatherViewModel)
+        1 -> SearchScreen(weatherViewModel, modifier)
+        2 -> SettingsScreen(modifier, navController)
         3 -> ProfileScreen(modifier)
     }
 }

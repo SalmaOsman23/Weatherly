@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.animation.core)
     implementation(libs.material3)
+    implementation(libs.androidx.foundation.layout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
