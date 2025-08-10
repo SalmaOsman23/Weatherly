@@ -14,7 +14,6 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -38,25 +37,6 @@ fun WelcomeScreen(navController: NavController, viewModel: WeatherViewModel) {
     val successResult by viewModel.successResult.observeAsState()
     val context = LocalContext.current
 
-    LaunchedEffect(successResult) {
-        when (val result = successResult) {
-            is NetworkResponse.Success -> {
-                val successData = result.data
-                val message = successData.success
-                Toast.makeText(context, "API Response: $message", Toast.LENGTH_SHORT).show()
-                navController.navigate(Routes.MainScreenRoute) {
-                    popUpTo(Routes.WelcomeScreenRoute) { inclusive = true }
-                }
-            }
-
-            is NetworkResponse.Error -> {
-                Toast.makeText(context, "API Error: ${result.message}", Toast.LENGTH_SHORT).show()
-            }
-
-            else -> {}
-        }
-    }
-
     Scaffold(
         content = { paddingValues ->
             Column(
@@ -68,8 +48,18 @@ fun WelcomeScreen(navController: NavController, viewModel: WeatherViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 when (successResult) {
-                    NetworkResponse.Loading -> {
+                    is NetworkResponse.Loading -> {
                         LottieLoadingComponent(modifier = Modifier.fillMaxSize())
+                    }
+                    is NetworkResponse.Success -> {
+                        val successData = (successResult as NetworkResponse.Success).data
+                        Toast.makeText(context, "API Response: ${successData.success}", Toast.LENGTH_SHORT).show()
+                        navController.navigate(Routes.MainScreenRoute)
+                        viewModel.resetSuccessState()
+                    }
+
+                    is NetworkResponse.Error -> {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                     }
 
                     else -> {
@@ -85,9 +75,7 @@ fun WelcomeScreen(navController: NavController, viewModel: WeatherViewModel) {
                             contentDescription = "Weatherly Welcome Illustration",
                             modifier = Modifier.size(300.dp)
                         )
-
                         Spacer(modifier = Modifier.height(32.dp))
-
                         FilledTonalButton(
                             onClick = {
                                 viewModel.getSuccessResponse()
@@ -97,7 +85,7 @@ fun WelcomeScreen(navController: NavController, viewModel: WeatherViewModel) {
                                 contentColor = colorResource(id = R.color.white)
                             )
                         ) {
-                            Text("Let's Start")
+                            Text("Let's Start", fontSize = 18.sp)
                         }
                     }
                 }
@@ -105,3 +93,4 @@ fun WelcomeScreen(navController: NavController, viewModel: WeatherViewModel) {
         }
     )
 }
+

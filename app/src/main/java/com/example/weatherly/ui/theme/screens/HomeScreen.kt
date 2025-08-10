@@ -175,16 +175,17 @@ fun WeatherCard(date: String, temperature: String, unit: String) {
             .background(
                 color = PrimaryColorLighterShade,
                 shape = RoundedCornerShape(20.dp)
-            ),
+            )
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-        ) {
-        Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row {
-                Spacer(modifier = Modifier.width(16.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "Date: ",
                     fontSize = 20.sp,
@@ -198,9 +199,10 @@ fun WeatherCard(date: String, temperature: String, unit: String) {
                     color = DarkPrimaryColor,
                     fontWeight = FontWeight.SemiBold
                 )
-
             }
-            Row {
+
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "Temp: ",
                     fontSize = 20.sp,
@@ -214,9 +216,7 @@ fun WeatherCard(date: String, temperature: String, unit: String) {
                     color = DarkPrimaryColor,
                     fontWeight = FontWeight.SemiBold
                 )
-
             }
-
         }
     }
 }

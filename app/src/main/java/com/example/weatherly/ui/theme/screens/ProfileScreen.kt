@@ -8,11 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import com.example.weatherly.ui.theme.DarkPrimaryColor
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier){
     Column (modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){  Text("Profile Screen", fontSize = 40.sp)}
+    ){  Text("Profile Screen", fontSize = 40.sp, color = DarkPrimaryColor)}
 }

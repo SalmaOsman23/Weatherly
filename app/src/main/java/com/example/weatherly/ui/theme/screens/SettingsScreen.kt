@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.weatherly.R
 import com.example.weatherly.ui.theme.Routes
@@ -30,7 +31,7 @@ fun SettingsScreen(modifier: Modifier = Modifier,navController: NavController){
                 contentColor = colorResource(id = R.color.white)
             )
         ) {
-            Text("Go to Welcome Screen")
+            Text("Go to Welcome Screen", fontSize = 18.sp)
         }
     }
 }
